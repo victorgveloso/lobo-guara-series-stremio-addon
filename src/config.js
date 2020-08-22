@@ -10,7 +10,7 @@ async function connect() {
     try {
         let CREDENTIALS = ""
         if (DB_USER && DB_PSK) CREDENTIALS = `${DB_USER}:${DB_PSK}@`
-        const mongouri = `mongodb://${CREDENTIALS}${DB_HOST}:${DB_PORT}/${DB_NAME}`
+        const mongouri = `mongodb+srv://${CREDENTIALS}${DB_HOST}:${DB_PORT}/${DB_NAME}?retryWrites=true&w=majority`
         await mongoose.connect(mongouri)
         return mongouri
     } catch (err) {
