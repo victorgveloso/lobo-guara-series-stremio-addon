@@ -10,11 +10,11 @@ async function connect() {
     try {
         let CREDENTIALS = ""
         if (DB_USER && DB_PSK) CREDENTIALS = `${DB_USER}:${DB_PSK}@`
-        const mongouri = `mongodb+srv://${CREDENTIALS}${DB_HOST}:${DB_PORT}/${DB_NAME}?retryWrites=true&w=majority`
+        const mongouri = `mongodb+srv://${CREDENTIALS}${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`
         await mongoose.connect(mongouri)
         return mongouri
     } catch (err) {
-        throw new Error(`Could not connect to db 'mongodb://${DB_HOST}:${DB_PORT}/${DB_NAME}': ${err}`)
+        throw new Error(`Could not connect to db 'mongodb+srv://${DB_HOST}/${DB_NAME}': ${err}`)
     }
 }
 connect().then((uri)=>{
