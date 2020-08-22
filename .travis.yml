@@ -1,0 +1,10 @@
+dist: bionic
+language: node_js
+node_js:
+    - node
+install: 
+    - npm install
+script: 
+    - npm test
+after_success:
+    - jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
