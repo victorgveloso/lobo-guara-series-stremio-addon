@@ -7,6 +7,8 @@ const MetaDAO = require('../../src/persistence/controllers/meta-dao');
 const StreamDAO = require('../../src/persistence/controllers/stream-dao');
 const Meta = require('../../src/persistence/models/meta');
 const Stream = require('../../src/persistence/models/stream');
+const retry = require('jest-retries');
+
 
 const movie = {
     meta: {
@@ -79,7 +81,7 @@ describe('Meta related tests', () => {
     })
 })
 describe('Stream related tests', () => {
-    it('Should add streams with new infoHash', async () => {
+    retry('Should add streams with new infoHash', 5, async () => {
         await upsertMovieData({
             meta: movie.meta,
             magnets: [{
@@ -95,7 +97,7 @@ describe('Stream related tests', () => {
 
         expect(streams).toHaveLength(2)
     })
-    it('Should not add streams with known infoHash', async () => {
+    retry('Should not add streams with known infoHash', 5, async () => {
         await upsertMovieData(movie)
 
         await timeout(500)
@@ -105,7 +107,7 @@ describe('Stream related tests', () => {
 
         expect(streams).toHaveLength(1)
     })
-    it('Should only add unknown infoHashes from list of streams', async () => {
+    retry('Should only add unknown infoHashes from list of streams', 5, async () => {
         await upsertMovieData({
             meta: movie.meta,
             magnets: [

@@ -16,6 +16,7 @@
         "stremio-addon-sdk": "^1.2.0"
     },
     "devDependencies": {
-        "jest": "^25.4.0"
+        "jest": "^25.4.0",
+        "jest-retries": "^1.0.1"
     }
 }
